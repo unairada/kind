@@ -1,0 +1,39 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: lrsql-postgres
+  namespace: cnpg
+spec:
+  # externalClusters:
+  #   - name: lrsql-postgres
+  #     barmanObjectStore:
+  #       destinationPath: s3://uki-pelotech-foundation-prod-0-csi-bucket/lrqsl-backup/od360-bravo/
+  #       s3Credentials:
+  #         inheritFromIAMRole: true
+  # bootstrap:
+  #   recovery:
+  #     source: lrsql-postgres
+  # backup:
+  #   barmanObjectStore:
+  #     destinationPath: s3://uki-pelotech-foundation-prod-0-csi-bucket/lrqsl-backup/od360-bravo/
+  #     s3Credentials:
+  #       inheritFromIAMRole: true
+  bootstrap:
+    initdb:
+      database: lrsql
+      secret:
+        name: lrsql-postgres
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.4
+  instances: 1
+#  resources:
+#    limits:
+#      memory: 1Gi
+#    requests:
+#      cpu: 250m
+#      memory: 1Gi
+  serviceAccountTemplate:
+    metadata:
+      annotations:
+        eks.amazonaws.com/role-arn: arn:aws-us-gov:iam::004063834845:role/foundation-prod-0-s3-backup-role
+  storage:
+    size: 1Gi

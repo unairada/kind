@@ -1,0 +1,46 @@
+# Match the chart example closely
+command:
+  - "/opt/keycloak/bin/kc.sh"
+  - "--verbose"
+  - "start"
+  - "--http-port=8080"
+  - "--hostname-strict=false"
+  - "--spi-events-listener-jboss-logging-success-level=info"
+  - "--spi-events-listener-jboss-logging-error-level=warn"
+
+cache:
+  stack: jdbc-ping
+
+extraEnv: |
+  - name: KEYCLOAK_ADMIN
+    value: admin
+  - name: KEYCLOAK_ADMIN_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-admin
+        key: password
+
+# - name: JAVA_OPTS_APPEND
+# value: >-
+#   -XX:MaxRAMPercentage=50.0
+#   -Djgroups.dns.query=keycloak-keycloakx-headless
+
+dbchecker:
+  enabled: true
+
+database:
+  vendor: postgres
+  hostname: keycloak-postgres-rw.default.svc.cluster.local
+  port: 5432
+  username: keycloak
+  database: keycloak
+  existingSecret: keycloak-database-app
+  existingSecretKey: password
+# Let the chart create the admin secret (as per example)
+# secrets:
+#   admin-creds:
+#     annotations: {}
+#     stringData:
+#       user: admin
+#       password: secret
+# Keep chart defaults for services; we’ll use the http service

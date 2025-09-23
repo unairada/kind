@@ -1,0 +1,11 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: cnpg-initdb
+spec:
+  databaseReclaimPolicy: delete
+  name: two-db
+  ensure: present
+  owner: postgres
+  cluster:
+    name: cnpg-initdb

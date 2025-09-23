@@ -1,0 +1,21 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: keycloak-postgres
+  namespace: default
+spec:
+  bootstrap:
+    initdb:
+      database: keycloak
+      secret:
+        name: keycloak-db-creds
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.9-3
+  instances: 1
+  resources:
+    limits:
+      memory: 1Gi
+    requests:
+      cpu: 250m
+      memory: 1Gi
+  storage:
+    size: 5Gi
