@@ -34,7 +34,7 @@ database:
   port: 5432
   username: keycloak
   database: keycloak
-  existingSecret: keycloak-database-app
+  existingSecret: keycloak-db-creds
   existingSecretKey: password
 # Let the chart create the admin secret (as per example)
 # secrets:

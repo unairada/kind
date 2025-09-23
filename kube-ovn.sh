@@ -3,7 +3,9 @@
 # set -o nounset
 # set -o pipefail
 
-k label node kind-worker kube-ovn/role=master
+kubectl label node kind-worker kube-ovn/role=master
+kubectl label node kind-worker2 kube-ovn/role=master
+kubectl label node kind-control-plane kube-ovn/role=master
 
 helm repo add kubeovn https://kubeovn.github.io/kube-ovn/
 helm upgrade kube-ovn kubeovn/kube-ovn \

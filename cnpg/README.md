@@ -22,3 +22,16 @@ kubectl create secret generic keycloak-db-creds \
 `$ kubectl apply -f cluster.yaml`
 
 `$ kubectl get pods -l cnpg.io/cluster=keycloak-postgres -w`
+
+## Results
+
+After running these commands, we will have a cnpg postgres cluster running named `keycloak-postgres` with a database named `keycloak`.
+
+These resources will be created:
+- `keycloak-postgres` cluster with a `keycloak` database.
+- `keycloak-postgres-r`,  `keycloak-postgres-ro` and `keycloak-postgres-rw` services.
+- `keycloak-postgres-1` persistent volume claim.
+- `keycloak-postgres-ca`, `keycloak-postgres-replication` and `keycloak-postgres-server` secrets.
+- `keycloak-postgres` service account.
+- `keycloak-postgres` role.
+- `keycloak-postgres` role binding.
