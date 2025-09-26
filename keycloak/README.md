@@ -17,7 +17,7 @@ Create the Keycloak admin password secret. The username is set via values (`KEYC
 
 ```
 kubectl create secret generic keycloak-admin \
-  --from-literal=password="$(openssl rand -base64 24)" \
+  --from-literal=password="admin" \
   -n default
 ```
 

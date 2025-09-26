@@ -8,5 +8,17 @@ networking:
   podSubnet: 10.244.0.0/16
 nodes:
   - role: control-plane
+    # extraMounts:
+    #   - hostPath: /Users/unai/git/kind/kind-resolv.conf
+    #     containerPath: /etc/resolv.conf
+    #     readOnly: true
   - role: worker
+    # extraMounts:
+    #   - hostPath: /Users/unai/git/kind/kind-resolv.conf
+    #     containerPath: /etc/resolv.conf
+    #   readOnly: true
   - role: worker
+    # extraMounts:
+    #   - hostPath: /Users/unai/OrbStack/docker/volumes/dns-config/resolv.conf
+    #     containerPath: /etc/resolv.conf
+    # readOnly: true
