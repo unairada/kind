@@ -1,0 +1,126 @@
+providerConfig:
+  name: keycloak-provider-config-crossplane-keycloak
+  secretName: keycloak-credentials
+
+realm:
+  name: prod
+  forProvider:
+    defaultSignatureAlgorithm: "RS256"
+    loginWithEmailAllowed: true
+    resetPasswordAllowed: true
+
+builtinObjects:
+  enabled: true
+  spec:
+    builtinClients:
+      - realm-management
+      - account
+    builtinRealmRoles: []
+    builtinAuthenticationFlows: []
+
+users:
+  - forProvider:
+      username: realm-admin
+      email: realm-admin@pelo.tech
+    roles:
+      names:
+        - "{{ tpl .Values.realm.name $ }}--admin"
+# roles:
+#   - name: "realm-admin"
+#     forProvider:
+#       name:
+# roles:
+#   - name: "administrator"
+#     forProvider:
+#       name: Administrator
+#       description: "Administrator role"
+#       compositeRolesRefs:
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-create-client"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-impersonation"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-authorization"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-clients"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-events"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-identity-providers"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-users"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-query-clients"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-query-groups"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-query-realms"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-query-users"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-realm-admin"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-authorization"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-clients"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-events"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-identity-providers"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-realm"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-users"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-delete-account"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-account"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-account-links"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-consent"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-applications"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-consent"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-groups"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-profile"
+#   - name: "approved"
+#     forProvider:
+#       name: Approved
+#       description: "Identifies approved users"
+#   - name: "opendash-admins"
+#     forProvider:
+#       name: opendash_admins
+#       description: "newer Administrator role"
+#       compositeRolesRefs:
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-create-client"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-impersonation"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-authorization"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-clients"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-events"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-identity-providers"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-users"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-query-clients"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-query-groups"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-query-realms"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-query-users"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-realm-admin"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-authorization"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-clients"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-events"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-identity-providers"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-realm"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-users"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-delete-account"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-account"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-account-links"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-manage-consent"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-applications"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-consent"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-groups"
+#         - name: "builtin-{{ tpl .Values.realm.name $ }}-view-profile"
+#   - name: "opendash-assessor"
+#     forProvider:
+#       name: opendash_assessor
+#       description: "Assessor Role"
+#   - name: "opendash-lms-admins"
+#     forProvider:
+#       name: opendash_lms_admins
+#       description: "LMS Role"
+#   - name: "opendash-quiz-author"
+#     forProvider:
+#       name: opendash_quiz_author
+#       description: "Quiz Author Role"
+#   - name: "opendash-resource-manager"
+#     forProvider:
+#       name: opendash_resource_manager
+#       description: "Opendash Resource Manager"
+#   - name: "opendash-training-certifier"
+#     forProvider:
+#       name: opendash_training_certifier
+#       description: "Training Certifier role"
+#   - name: "opendash-workforce-manager"
+#     forProvider:
+#       name: opendash_workforce_manager
+#       description: "Workforce manager role"
+#   - name: "opendash-integration"
+#     forProvider:
+#       name: opendash_integration
+#       description: "Role for use by external partners"

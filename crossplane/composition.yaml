@@ -1,0 +1,46 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: keycloak-builtin-objects
+spec:
+  compositeTypeRef:
+    apiVersion: keycloak.m.crossplane.io/v1alpha1
+    kind: XBuiltinObjects
+  mode: Pipeline
+  pipeline:
+    - functionRef:
+        name: function-extra-resources
+      input:
+        apiVersion: extra-resources.fn.crossplane.io/v1beta1
+        kind: Input
+        spec:
+          extraResources:
+            - apiVersion: v1
+              into: secrets
+              kind: Secret
+              selector:
+                matchLabels:
+                  - key: type
+                    type: Value
+                    value: provider-credentials
+                maxMatch: 100
+                minMatch: 1
+              type: Selector
+            - apiVersion: role.keycloak.m.crossplane.io/v1alpha1
+              into: roles
+              kind: Role
+              selector:
+                matchLabels:
+                  - key: type
+                    type: Value
+                    value: modifiedrole
+                maxMatch: 20
+                minMatch: 0
+              type: Selector
+      step: pull-provider-configs
+    - functionRef:
+        name: function-keycloak-builtin-objects
+      step: keycloak-builtin-objects
+    - functionRef:
+        name: function-auto-ready
+      step: automatically-detect-ready-composed-resources

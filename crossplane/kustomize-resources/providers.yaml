@@ -1,0 +1,9 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-keycloak
+  namespace: crossplane
+spec:
+  package: xpkg.upbound.io/crossplane-contrib/provider-keycloak:v2.7.2
+  runtimeConfigRef:
+    name: enable-management-policies
