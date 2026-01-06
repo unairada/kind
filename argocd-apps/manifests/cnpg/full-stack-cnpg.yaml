@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cnpg-full-stack
+  namespace: argocd
+  annotations:
+    # This helps ArgoCD handle the CRD race condition better
+    argocd.argoproj.io/sync-options: ServerSideApply=true
+spec:
+  project: default
+  sources:
+    # Source 1: The Operator (Helm)
+    - repoURL: https://cloudnative-pg.github.io/charts
+      chart: cloudnative-pg
+      targetRevision: 0.23.0
+      helm:
+        releaseName: cnpg
+
+    # Source 2: The cnpg cluster
+    - repoURL: https://github.com/unairada/kind.git
+      targetRevision: HEAD
+      path: argocd-apps/resources/keycloak-db
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cnpg-system # Will be overriden by the database
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    # This is the "Magic" that makes your idea work:
+    retry:
+      limit: 5 # Retry up to 5 times
+      backoff:
+        duration: 5s # Wait 5s before first retry
+        factor: 2 # Double the wait time each failure
+        maxDuration: 3m # Max wait time
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true # Helps with CRD management

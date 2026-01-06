@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  password: SElIR2w4YXpIT3pSbWhJdTlOTWdaTG5xcmwvdzE1UHE=
+  username: a2V5Y2xvYWs=
+kind: Secret
+metadata:
+  name: keycloak-db-creds
+  namespace: default
