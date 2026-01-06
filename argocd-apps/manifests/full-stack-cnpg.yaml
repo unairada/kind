@@ -19,7 +19,7 @@ spec:
     # Source 2: The cnpg cluster
     - repoURL: https://github.com/unairada/kind.git
       targetRevision: HEAD
-      path: argocd-apps/resources/keycloak-db
+      path: apps/keycloak-db
 
   destination:
     server: https://kubernetes.default.svc
