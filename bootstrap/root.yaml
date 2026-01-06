@@ -12,6 +12,8 @@ spec:
   project: default
   source:
     path: ./argocd-apps/manifests/
+    directory:
+      recurse: true
     repoURL: https://github.com/unairada/kind.git
     targetRevision: HEAD
   syncPolicy:
