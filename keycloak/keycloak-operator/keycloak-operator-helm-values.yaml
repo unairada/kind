@@ -1,0 +1,41 @@
+operator:
+  enabled: true
+
+keycloak:
+  enabled: true
+  name: keycloak
+  # startOptimized must be a boolean to satisfy the 'ternary' function
+  startOptimized: false
+  additionalOptions:
+    - name: http-management-enabled
+      value: "true"
+    - name: http-management-scheme
+      value: "http"
+
+  instances: 1
+
+  bootstrapAdmin:
+    user:
+      secret: keycloak-admin
+
+  db:
+    vendor: postgres
+    host: keycloak-postgres-rw.default.svc.cluster.local
+    port: 5432
+    database: keycloak
+    usernameSecret:
+      name: keycloak-db-creds
+      key: username
+    passwordSecret:
+      name: keycloak-db-creds
+      key: password
+
+  http:
+    httpEnabled: true
+
+  hostname:
+    strict: false
+
+  # The template includes a check for transaction.xaEnabled
+  transaction:
+    xaEnabled: false

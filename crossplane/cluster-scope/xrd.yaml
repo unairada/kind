@@ -1,0 +1,68 @@
+apiVersion: apiextensions.crossplane.io/v2
+kind: CompositeResourceDefinition
+metadata:
+  name: xbuiltinobjects.keycloak.crossplane.io
+spec:
+  scope: Cluster
+  group: keycloak.crossplane.io
+  names:
+    kind: XBuiltinObjects
+    plural: xbuiltinobjects
+  versions:
+    - name: v1alpha1
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          properties:
+            spec:
+              properties:
+                builtinAuthenticationFlows:
+                  description: List of authentication flows to import from the realm
+                  items:
+                    type: string
+                  type: array
+                builtinClients:
+                  description: List of clients to import from the realm
+                  items:
+                    type: string
+                  type: array
+                builtinRealmRoles:
+                  description: List of realm roles to import from the realm
+                  items:
+                    enum:
+                      - offline_access
+                      - uma_authorization
+                      - admin
+                      - create-realm
+                      - default-roles-master
+                    type: string
+                  type: array
+                providerConfigName:
+                  description: >-
+                    Name of the provider config to attach to the imported
+                    clients/roles
+                  type: string
+                providerConfigKind:
+                  type: string
+                  default: ClusterProviderConfig
+                  enum:
+                    - ClusterProviderConfig
+                    - ProviderConfig
+                providerSecretName:
+                  description: >-
+                    Name of the secret containing the provider credentials
+                    (Secret must have a label with key=type and
+                    value=provider-credentials to be found)
+                  type: string
+                realm:
+                  description: Realm to import the builtin clients/roles from
+                  type: string
+              required:
+                - providerConfigName
+                - providerSecretName
+                - realm
+              type: object
+          required:
+            - spec
+          type: object
+      served: true

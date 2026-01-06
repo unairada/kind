@@ -4,8 +4,9 @@ kind: Function
 metadata:
   name: function-keycloak-builtin-objects
 spec:
-  package: >-
-    registry.gitlab.com/corewire/images/crossplane/function-keycloak-builtin-objects:v3.0.0
+  packagePullSecrets:
+    - name: dockerconfigjson-github-com
+  package: ghcr.io/unairada/function-keycloak-builtin-objects:dynamic-selection@sha256:44091a291c6db9205f854218b51a49cb422c95ae9a07dbf9315c2f829ccd1bdc
 ---
 apiVersion: pkg.crossplane.io/v1beta1
 kind: Function
@@ -16,11 +17,19 @@ metadata:
     #render.crossplane.io/runtime: Development
 spec:
   # This is ignored when using the Development runtime.
-  package: xpkg.upbound.io/crossplane-contrib/function-extra-resources:v0.1.0
+  package: xpkg.upbound.io/crossplane-contrib/function-extra-resources:v0.2.0
 ---
 apiVersion: pkg.crossplane.io/v1beta1
 kind: Function
 metadata:
   name: function-auto-ready
 spec:
-  package: xpkg.upbound.io/crossplane-contrib/function-auto-ready:v0.0.0-20231101225931-60aea09d94c8
+  package: xpkg.upbound.io/crossplane-contrib/function-auto-ready:v0.5.1
+
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Function
+metadata:
+  name: function-patch-and-transform
+spec:
+  package: xpkg.crossplane.io/crossplane-contrib/function-patch-and-transform:v0.8.2

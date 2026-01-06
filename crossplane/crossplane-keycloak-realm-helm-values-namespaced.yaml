@@ -1,21 +1,31 @@
 providerConfig:
-  name: cluster-keycloak-provider-config
-  kind: ClusterProviderConfig
+  name: keycloak-provider-config-crossplane
+  kind: ProviderConfig
   secretName: keycloak-credentials
 
 realm:
-  name: test4
+  name: prod
   forProvider:
     defaultSignatureAlgorithm: "RS256"
     loginWithEmailAllowed: true
     resetPasswordAllowed: true
 
-adminUser:
-  enabled: true
-  username: "realm-admin"
-  email: "realm-admin@pelo.tech"
+builtinObjects:
+  enabled: false
+  spec:
+    builtinClients:
+      - realm-management
+      - account
+    builtinRealmRoles: []
+    builtinAuthenticationFlows: []
 
-users: []
+users:
+  - forProvider:
+      username: realm-admin
+      email: realm-admin@pelo.tech
+    roles:
+      names:
+        - "builtin-prod-realm-management-realm-admin"
 # roles:
 #   - name: "realm-admin"
 #     forProvider:

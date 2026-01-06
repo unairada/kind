@@ -1,0 +1,13 @@
+# Source: crossplane-keycloak-realm/templates/realm.yaml
+apiVersion: realm.keycloak.crossplane.io/v1alpha1
+kind: Realm
+metadata:
+  name: "prod--realm"
+spec:
+  providerConfigRef:
+    name: "cluster-keycloak-provider-config"
+  forProvider:
+    realm: "prod"
+    defaultSignatureAlgorithm: RS256
+    loginWithEmailAllowed: true
+    resetPasswordAllowed: true

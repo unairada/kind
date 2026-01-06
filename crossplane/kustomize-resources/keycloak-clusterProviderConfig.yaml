@@ -1,19 +1,21 @@
 ---
 apiVersion: keycloak.m.crossplane.io/v1beta1
-kind: ProviderConfig
+kind: ClusterProviderConfig
 metadata:
-  name: keycloak-provider-config-crossplane
-  namespace: crossplane
+  name: cluster-keycloak-provider-config
 spec:
-  credentialsSecretRef:
-    name: keycloak-credentials
-    key: credentials
+  credentials:
+    source: Secret
+    secretRef:
+      name: keycloak-credentials
+      key: credentials
+      namespace: default
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   name: keycloak-credentials
-  namespace: crossplane
+  namespace: default
   labels:
     type: provider-credentials
 type: Opaque

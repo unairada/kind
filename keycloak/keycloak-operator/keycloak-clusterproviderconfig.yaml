@@ -1,22 +1,21 @@
 ---
-apiVersion: keycloak.crossplane.io/v1beta1
-kind: ProviderConfig
+apiVersion: keycloak.m.crossplane.io/v1beta1
+kind: ClusterProviderConfig
 metadata:
-  name: keycloak-provider-config
-  namespace: crossplane
+  name: cluster-keycloak-provider-config
 spec:
   credentials:
     source: Secret
     secretRef:
       name: keycloak-credentials
       key: credentials
-      namespace: crossplane
+      namespace: default
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   name: keycloak-credentials
-  namespace: crossplane
+  namespace: default
   labels:
     type: provider-credentials
 type: Opaque
@@ -24,9 +23,8 @@ stringData:
   credentials: |
     {
       "client_id":"admin-cli",
-      "username": "admin",
-      "password": "admin",
-      "url": "http://keycloak-keycloakx-http.default.svc.cluster.local",
-      "base_path": "/auth",
+      "username": "crossplane-admin",
+      "password": "w8UV33RkBhEA6c+AaFoOOTYKGp3cnkQD",
+      "url": "http://keycloak-service.keycloak.svc.cluster.local:8080",
       "realm": "master"
     }

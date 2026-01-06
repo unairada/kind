@@ -1,0 +1,31 @@
+apiVersion: user.keycloak.m.crossplane.io/v1alpha1
+kind: Roles
+metadata:
+  annotations:
+    meta.helm.sh/release-name: crossplane-keycloak-realm
+    meta.helm.sh/release-namespace: crossplane
+  creationTimestamp: "2025-11-17T23:48:54Z"
+  generation: 3
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: prod--realm-admin--roles
+  namespace: crossplane
+  resourceVersion: "108648"
+  uid: 40310dd2-b439-4933-a1f6-abb34db7b0fb
+spec:
+  forProvider:
+    realmId: prod
+    realmIdRef:
+      name: prod--realm
+    roleIds:
+    - f5359921-7776-4ff8-b7c8-78323746f367
+    roleIdsRefs:
+    - name: builtin-prod-realm-management-realm-admin
+    userId: 42b1ddda-070c-4417-b768-e5ecd0d815b2
+    userIdRef:
+      name: prod--realm-admin
+  managementPolicies:
+  - '*'
+  providerConfigRef:
+    kind: ProviderConfig
+    name: keycloak-provider-config-crossplane

@@ -1,0 +1,11 @@
+apiVersion: realm.keycloak.m.crossplane.io/v1alpha1
+kind: Realm
+metadata:
+  name: unai-test
+  namespace: crossplane-keycloak
+spec:
+  forProvider:
+    realm: unai-test
+  providerConfigRef:
+    kind: ProviderConfig
+    name: keycloak-provider-config-crossplane-keycloak

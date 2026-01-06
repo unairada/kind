@@ -1,0 +1,37 @@
+apiVersion: openidclient.keycloak.m.crossplane.io/v1alpha1
+kind: Client
+metadata:
+  name: client--admin-cli
+  namespace: crossplane-ns-test
+  annotations:
+    crossplane.io/external-name: admin-cli
+spec:
+  forProvider:
+    accessType: CONFIDENTIAL
+    clientId: admin-cli
+    realmId: prod
+    import: true
+  providerConfigRef:
+    name: cluster-keycloak-provider-config
+    kind: ClusterProviderConfig
+  managementPolicies: [Observe]
+
+---
+apiVersion: openidclient.keycloak.m.crossplane.io/v1alpha1
+kind: Client
+metadata:
+  annotations:
+    crossplane.io/external-name: realm-management
+  name: client--realm-management
+  namespace: crossplane-ns-test
+spec:
+  forProvider:
+    accessType: CONFIDENTIAL
+    clientId: realm-management
+    realmId: prod
+    import: true
+    fullScopeAllowed: true
+  providerConfigRef:
+    name: cluster-keycloak-provider-config
+    kind: ClusterProviderConfig
+  managementPolicies: [Observe]

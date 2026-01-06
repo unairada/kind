@@ -1,0 +1,26 @@
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: Keycloak
+metadata:
+  name: keycloak
+  namespace: keycloak
+spec:
+  instances: 1
+  bootstrapAdmin:
+    user:
+      secret: keycloak-bootstrap-crossplane-admin
+  db:
+    host: keycloak-postgres-rw.default.svc.cluster.local
+    vendor: postgres
+    port: 5432
+    database: keycloak
+    usernameSecret:
+      name: keycloak-db-creds
+      key: username
+    passwordSecret:
+      name: keycloak-db-creds
+      key: password
+  http:
+    httpEnabled: true
+  hostname:
+    strict: false
+    strictBackchannel: false

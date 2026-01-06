@@ -1,16 +1,18 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: crossplane
+# namespace: crossplane
 
 resources:
-  - kustomize-resources/namespace.yaml
-  - kustomize-resources/providers.yaml
-  # - kustomize-resources/deployment-runtime-config.yaml
+  # - kustomize-resources/namespace.yaml
+  - kustomize-resources/dockerconfigson.yaml # For Namespaced AND Cluster
+  - kustomize-resources/deployment-runtime-config.yaml
+  - kustomize-resources/providers.yaml # For Namespaced AND Cluster
   # - kustomize-resources/keycloak-providerConfig-namespaced.yaml
+  # - kustomize-resources/keycloak-providerConfig.yaml
 
 helmCharts:
   - name: crossplane
     releaseName: crossplane
-    namespace: crossplane
+    # namespace: crossplane
     repo: https://charts.crossplane.io/stable
-    version: "v2.0.2"
+    version: "v2.1.1"

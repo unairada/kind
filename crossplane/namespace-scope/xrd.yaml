@@ -42,6 +42,12 @@ spec:
                     Name of the provider config to attach to the imported
                     clients/roles
                   type: string
+                providerConfigKind:
+                  type: string
+                  default: ClusterProviderConfig
+                  enum:
+                    - ClusterProviderConfig
+                    - ProviderConfig
                 providerSecretName:
                   description: >-
                     Name of the secret containing the provider credentials

@@ -1,0 +1,10 @@
+kind: Secret
+type: kubernetes.io/dockerconfigjson
+apiVersion: v1
+metadata:
+  name: dockerconfigjson-github-com
+  # namespace: crossplane
+  labels:
+    app: crossplane
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJnaGNyLmlvIjp7ImF1dGgiOiJkVzVoYVhKaFpHRTZaMmh3WDJoR1NtSkxNbVJGWTNONmEzUnliR3MzTVVKdmQzWnhTazU0ZFdJMVN6QTROMlYwTlE9PSJ9fX0=

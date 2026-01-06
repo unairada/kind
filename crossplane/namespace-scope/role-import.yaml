@@ -1,0 +1,36 @@
+# apiVersion: client.keycloak.m.crossplane.io/v1alpha1
+# kind: RoleMapper
+# metadata:
+#   # annotations:
+#   #   crossplane.io/external-name: realm-admin
+#   name: rolemapper-client-realm-management
+#   namespace: crossplane-ns-test
+# spec:
+#   providerConfigRef:
+#     kind: ClusterProviderConfig
+#     name: cluster-keycloak-provider-config
+#   forProvider:
+#     realmId: prod
+#     clientId: realm-management
+#     roleId: realm-admin
+#   managementPolicies: [Observe]
+---
+apiVersion: role.keycloak.m.crossplane.io/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    crossplane.io/external-name: realm-admin
+  name: role--realm-admin
+  namespace: crossplane-ns-test
+spec:
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: cluster-keycloak-provider-config
+  forProvider:
+    description: My Realm Admin Role
+    name: realm-admin
+    realmId: prod
+    import: true
+    clientIdRef:
+      name: client--realm-management
+  managementPolicies: [Observe]
