@@ -1,0 +1,55 @@
+repositories:
+  - name: codecentric
+    url: https://codecentric.github.io/helm-charts
+
+releases:
+  - name: keycloak
+    namespace: default
+    chart: codecentric/keycloakx
+    wait: true
+    values:
+      - replicas: 1
+        image:
+          repository: quay.io/keycloak/keycloak
+          tag: 26.3.3
+          pullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 250m
+            memory: 768Mi
+          limits:
+            memory: 2Gi
+        command:
+          - "/opt/keycloak/bin/kc.sh"
+          - "--verbose"
+          - "start"
+          - "--http-port=8080"
+          - "--hostname-strict=false"
+          - "--spi-events-listener-jboss-logging-success-level=info"
+          - "--spi-events-listener-jboss-logging-error-level=warn"
+        extraEnv: |
+          - name: KEYCLOAK_ADMIN
+            value: admin
+          - name: KEYCLOAK_ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: keycloak-admin
+                key: password
+          - name: JAVA_OPTS_APPEND
+            value: >-
+              -XX:MaxRAMPercentage=50.0
+              -Djgroups.dns.query=keycloak-keycloakx-headless
+        dbchecker:
+          enabled: true
+        database:
+          vendor: postgres
+          hostname: keycloak-postgres-rw.default.svc.cluster.local
+          port: 5432
+          username: keycloak
+          database: keycloak
+          existingSecret: keycloak-db-creds
+          existingSecretKey: password
+        service:
+          type: ClusterIP
+        ingress:
+          enabled: false

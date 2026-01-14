@@ -1,0 +1,19 @@
+repositories:
+  - name: cnpg
+    url: https://cloudnative-pg.github.io/charts
+  - name: crossplane-stable
+    url: https://charts.crossplane.io/stable
+
+releases:
+  - name: cnpg
+    namespace: cnpg-system
+    chart: cnpg/cloudnative-pg
+    createNamespace: true
+    wait: true
+
+  - name: crossplane
+    namespace: crossplane-system
+    chart: crossplane-stable/crossplane
+    version: 2.1.1
+    createNamespace: true
+    wait: true

@@ -63,3 +63,13 @@ kubectl wait --for=condition=Available deployment/argocd-server -n argocd --time
 echo "Patching ArgoCD Service to access locally..."
 kubectl patch svc argocd-server -n argocd -p \
   '{"spec": {"type": "NodePort", "ports": [{"name": "http", "nodePort": 30080, "port": 80, "protocol": "TCP", "targetPort": 8080}, {"name": "https", "nodePort": 30443, "port": 443, "protocol": "TCP", "targetPort": 8080}]}}'
+
+echo "You can access ArgoCD at https://kind-worker.orb.local:30443"
+echo "Username: admin"
+echo "Run the following command to find the admin password"
+echo "kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d"
+
+echo "Creating the root application"
+kubectl apply -f "${SCRIPT_DIR}/root.yaml"
+
+echo "Setup complete!"
